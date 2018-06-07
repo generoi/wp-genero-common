@@ -4,10 +4,10 @@ namespace GeneroWP\Common;
 
 trait Templating
 {
-    public function template($handle, $slug, $attributes = [])
+    public function template($handle, $file, $attributes = [])
     {
         $templates = [
-            "$slug.php",
+            basename($file),
         ];
 
         $templates = apply_filters("$handle/template_hierarchy", array_reverse(array_merge($templates, array_map(function ($template) use ($handle) {
@@ -27,13 +27,13 @@ trait Templating
             $template = str_replace(TEMPLATEPATH, '', $template);
             return \Timber::fetch($template, $attributes);
         }
-        return $this->renderPhpTemplate($this->getTemplateDir() . "/$slug.php", $attributes);
+        return $this->renderPhpTemplate($this->getStaticDir() . '/' . $file, $attributes);
     }
 
 
-    protected function getTemplateDir()
+    protected function getStaticDir()
     {
-        return dirname((new \ReflectionClass(static::class))->getFileName()) . '/views';
+        return dirname((new \ReflectionClass(static::class))->getFileName());
     }
 
     protected function renderPhpTemplate($path, $attributes)
