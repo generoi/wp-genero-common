@@ -1,20 +1,17 @@
 <?php
 
-namespace GeneroWP\BlockBoilerplate\Common;
-
-use GeneroWP\BlockBoilerplate\Plugin;
+namespace GeneroWP\Common;
 
 trait Templating
 {
-    public function template($slug, $attributes)
+    public function template($handle, $slug, $attributes = [])
     {
-        $handle = Plugin::get_instance()->plugin_name;
         $templates = [
             "$slug.php",
         ];
 
-        $templates = apply_filters("$handle/template_hierarchy", array_reverse(array_merge($templates, array_map(function ($template) {
-            return 'gutenberg/' . $template;
+        $templates = apply_filters("$handle/template_hierarchy", array_reverse(array_merge($templates, array_map(function ($template) use ($handle) {
+            return $handle . '/' . $template;
         }, $templates))));
 
         // WP Timber Extended support
@@ -30,15 +27,16 @@ trait Templating
             $template = str_replace(TEMPLATEPATH, '', $template);
             return \Timber::fetch($template, $attributes);
         }
-        return $this->renderPhpTemplate($this->getDir() . "/views/$slug.php", $attributes);
+        return $this->renderPhpTemplate($this->getTemplateDir() . "/$slug.php", $attributes);
     }
 
-    protected function getDir()
+
+    protected function getTemplateDir()
     {
-        return dirname((new \ReflectionClass(static::class))->getFileName());
+        return dirname((new \ReflectionClass(static::class))->getFileName()) . '/views';
     }
 
-    public function renderPhpTemplate($path, $attributes)
+    protected function renderPhpTemplate($path, $attributes)
     {
         extract($attributes);
         ob_start();

@@ -1,23 +1,23 @@
 <?php
 
-namespace GeneroWP\BlockBoilerplate\Common;
+namespace GeneroWP\Common;
 
 trait Singleton
 {
     /**
      * @var self
      */
-    protected static $instance = null;
+    protected static $instances = [];
 
     /**
      * @return self
      */
-    final public static function get_instance()
+    final public static function getInstance()
     {
-        if (null === self::$instance) {
-            self::$instance = new self();
+        if (!isset(self::$instances[__CLASS__])) {
+            self::$instances[__CLASS__] = new static();
         }
-        return self::$instance;
+        return self::$instances[__CLASS__];
     }
 
     /**

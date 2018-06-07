@@ -1,9 +1,8 @@
 {
-  "name": "generoi/wp-gutenberg-boilerplate",
-  "type": "wordpress-plugin",
+  "name": "generoi/wp-genero-common",
   "license": "MIT",
-  "description": "A boilerplate WordPress Gutenberg plugin",
-  "homepage": "https://github.com/generoi/wp-gutenberg-boilerplate",
+  "description": "Shared PHP logic for Genero WP plugins",
+  "homepage": "https://github.com/generoi/wp-genero-common",
   "authors": [
     {
       "name": "Oskar Schöldström",
@@ -15,31 +14,18 @@
     "gutenberg"
   ],
   "support": {
-    "issues": "https://github.com/generoi/wp-gutenberg-boilerplate/issues"
+    "issues": "https://github.com/generoi/wp-genero-common/issues"
   },
-  "repositories": [
-    {
-      "type": "composer",
-      "url": "https://wpackagist.org"
-    },
-    {
-      "type": "composer",
-      "url": "https://packagist.minasithil.genero.fi/"
-    }
-  ],
   "require": {
     "php": ">=5.6.0",
-    "composer/installers": "~1.0",
-    "yahnis-elsts/plugin-update-checker": "^4.4"
+    "composer/installers": "~1.0"
   },
   "require-dev": {
-    "squizlabs/php_codesniffer": "^2.5.1",
-    "consolidation/robo": "~1.3.0",
-    "generoi/robo-genero": "dev-master"
+    "squizlabs/php_codesniffer": "^2.5.1"
   },
   "autoload": {
     "psr-4": {
-      "GeneroWP\\BlockBoilerplate\\": "src/"
+      "GeneroWP\\Common\\": "src/"
     }
   },
   "scripts": {
