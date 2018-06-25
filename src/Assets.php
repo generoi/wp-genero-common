@@ -24,6 +24,17 @@ trait Assets
         $this->run('wp_register_script', ...$params);
     }
 
+    public function localizeScript($handle, $data, $plugin_name = null)
+    {
+        if (is_null($plugin_name)) {
+            $plugin_name = $this->plugin_name;
+        }
+        if (!empty($data)) {
+            $script = 'wp.i18n.setLocaleData(' . json_encode($data) . ', "' . $plugin_name . '");';
+            wp_add_inline_script($handle, $script, 'before');
+        }
+    }
+
     protected function run($function, $handle, $path = null, $dependencies = [], $version = false) {
         if (!$path) {
             $function($handle);
