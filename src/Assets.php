@@ -35,7 +35,7 @@ trait Assets
         }
     }
 
-    protected function run($function, $handle, $path = null, $dependencies = [], $version = false) {
+    protected function run($function, $handle, $path = null, $dependencies = [], $version = false, ...$params) {
         if (!$path) {
             $function($handle);
         }
@@ -44,10 +44,10 @@ trait Assets
             $url = $this->plugin_url . $path;
             $path = $this->plugin_path . $path;
             $version = empty($version) ? filemtime($path) : $version;
-            $function($handle, $url, $dependencies, $version);
+            $function($handle, $url, $dependencies, $version, ...$params);
         } else {
             // Remote file
-            $function($handle, $path, $dependencies);
+            $function($handle, $path, $dependencies, ...$params);
         }
     }
 }
