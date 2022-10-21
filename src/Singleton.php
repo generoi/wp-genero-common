@@ -25,7 +25,7 @@ trait Singleton
      *
      * @return void
      */
-    final private function __clone()
+    final function __clone()
     {
     }
 
@@ -34,7 +34,7 @@ trait Singleton
      *
      * @return void
      */
-    final private function __wakeup()
+    final function __wakeup()
     {
     }
 }
